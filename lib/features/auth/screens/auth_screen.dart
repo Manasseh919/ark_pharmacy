@@ -1,6 +1,7 @@
 import 'package:ark_pharmacy/common/widgets/custom_button.dart';
 import 'package:ark_pharmacy/common/widgets/custom_textfield.dart';
 import 'package:ark_pharmacy/constants/global_variables.dart';
+import 'package:ark_pharmacy/features/auth/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
 enum Auth { signin, signup }
@@ -21,6 +22,7 @@ class _AuthScreenState extends State<AuthScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
+  final AuthService authService = AuthService();
 
   @override
   void dispose() {
@@ -28,6 +30,14 @@ class _AuthScreenState extends State<AuthScreen> {
     _emailController.dispose();
     _passwordController.dispose();
     _nameController.dispose();
+  }
+
+  void signUpUser() {
+    authService.signUpUser(
+        context: context,
+        email: _emailController.text,
+        password: _passwordController.text,
+        name: _nameController.text);
   }
 
   @override
@@ -43,8 +53,9 @@ class _AuthScreenState extends State<AuthScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Icon(
-                Icons.lock,
+                Icons.health_and_safety_sharp,
                 size: 100,
+                color: Colors.red,
               ),
               const SizedBox(
                 height: 50,
@@ -56,23 +67,29 @@ class _AuthScreenState extends State<AuthScreen> {
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
               ),
-              ListTile(
-                tileColor: _auth == Auth.signup
-                    ? GlobalVariables.backgroundColor
-                    : GlobalVariables.greyBackgroundCOlor,
-                title: const Text(
-                  'Create Account',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                leading: Radio(
-                  value: Auth.signup,
-                  groupValue: _auth,
-                  onChanged: (Auth? val) {
-                    setState(() {
-                      _auth = val!;
-                    });
-                  },
-                  activeColor: GlobalVariables.secondaryColor,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListTile(
+                  tileColor: _auth == Auth.signup
+                      ? GlobalVariables.backgroundColor
+                      : GlobalVariables.greyBackgroundCOlor,
+                  title: const Text(
+                    'Create Account',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  leading: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Radio(
+                      value: Auth.signup,
+                      groupValue: _auth,
+                      onChanged: (Auth? val) {
+                        setState(() {
+                          _auth = val!;
+                        });
+                      },
+                      activeColor: GlobalVariables.secondaryColor,
+                    ),
+                  ),
                 ),
               ),
               if (_auth == Auth.signup)
@@ -103,28 +120,41 @@ class _AuthScreenState extends State<AuthScreen> {
                         const SizedBox(
                           height: 10,
                         ),
-                        CustomButton(text: "Sign Up", onTap: () {})
+                        CustomButton(
+                            text: "Sign Up",
+                            onTap: () {
+                              if (_signUpFormKey.currentState!.validate()) {
+                                signUpUser();
+                              }
+                              ;
+                            })
                       ],
                     ),
                   ),
                 ),
-              ListTile(
-                tileColor: _auth == Auth.signin
-                    ? GlobalVariables.backgroundColor
-                    : GlobalVariables.greyBackgroundCOlor,
-                title: const Text(
-                  'Sign In',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                leading: Radio(
-                  value: Auth.signin,
-                  groupValue: _auth,
-                  onChanged: (Auth? val) {
-                    setState(() {
-                      _auth = val!;
-                    });
-                  },
-                  activeColor: GlobalVariables.secondaryColor,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListTile(
+                  tileColor: _auth == Auth.signin
+                      ? GlobalVariables.backgroundColor
+                      : GlobalVariables.greyBackgroundCOlor,
+                  title: const Text(
+                    'Sign In',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  leading: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Radio(
+                      value: Auth.signin,
+                      groupValue: _auth,
+                      onChanged: (Auth? val) {
+                        setState(() {
+                          _auth = val!;
+                        });
+                      },
+                      activeColor: GlobalVariables.secondaryColor,
+                    ),
+                  ),
                 ),
               ),
               if (_auth == Auth.signin)
