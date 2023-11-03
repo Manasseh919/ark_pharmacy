@@ -1,11 +1,15 @@
-
+import 'dart:convert';
 
 import 'package:ark_pharmacy/constants/error_handling.dart';
 import 'package:ark_pharmacy/constants/global_variables.dart';
 import 'package:ark_pharmacy/constants/utils.dart';
+import 'package:ark_pharmacy/features/home/screens/home_screen.dart';
 import 'package:ark_pharmacy/models/user.dart';
+import 'package:ark_pharmacy/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
   //signup a user
@@ -39,9 +43,44 @@ class AuthService {
             showSnackBar(context,
                 "Account has been created! Login with the same credentials");
           });
-      
     } catch (e) {
-        // ignore: use_build_context_synchronously
+      // ignore: use_build_context_synchronously
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  /* sign in user */
+  void signInUser({
+    required BuildContext context,
+    required String email,
+    required String password,
+  }) async {
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$uri/api/signin'),
+        body: jsonEncode({'email': email, 'password': password}),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      // ignore: use_build_context_synchronously
+      httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: () async {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            Provider.of<UserProvider>(context, listen: false).setUser(res.body);
+            await prefs.setString(
+                'x-auth-token', jsonDecode(res.body)['token']);
+
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              HomeScreen.routeName,
+              (route) => false,
+            );
+          });
+    } catch (e) {
+      // ignore: use_build_context_synchronously
       showSnackBar(context, e.toString());
     }
   }
