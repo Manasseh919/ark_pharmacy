@@ -34,5 +34,7 @@ const userSchema = mongoose.Schema({
   //cart
 });
 
+
+//singin route
 const User = mongoose.model('User',userSchema);
 module.exports=User;
