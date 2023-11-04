@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ark_pharmacy/constants/bottom_bar.dart';
 import 'package:ark_pharmacy/constants/error_handling.dart';
 import 'package:ark_pharmacy/constants/global_variables.dart';
 import 'package:ark_pharmacy/constants/utils.dart';
@@ -75,7 +76,7 @@ class AuthService {
 
             Navigator.pushNamedAndRemoveUntil(
               context,
-              HomeScreen.routeName,
+              BottomBar.routeName,
               (route) => false,
             );
           });

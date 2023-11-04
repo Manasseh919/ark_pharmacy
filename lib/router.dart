@@ -1,3 +1,4 @@
+import 'package:ark_pharmacy/constants/bottom_bar.dart';
 import 'package:ark_pharmacy/features/auth/screens/auth_screen.dart';
 import 'package:ark_pharmacy/features/home/screens/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,11 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const HomeScreen(),
+      );
+    case BottomBar.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const BottomBar(),
       );
     default:
       return MaterialPageRoute(
