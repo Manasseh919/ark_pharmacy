@@ -1,5 +1,6 @@
 import 'package:ark_pharmacy/constants/global_variables.dart';
 import 'package:ark_pharmacy/features/home/widgets/address_box.dart';
+import 'package:ark_pharmacy/features/home/widgets/top_categories.dart';
 import 'package:ark_pharmacy/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -86,8 +87,14 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        body: Column(
-          children: [AddressBox()],
+        body: const Column(
+          children: [
+            AddressBox(),
+            SizedBox(
+              height: 10,
+            ),
+            TopCategories()
+          ],
         ));
   }
 }
