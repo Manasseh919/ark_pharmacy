@@ -18,8 +18,7 @@ class GlobalVariables {
   static var selectedNavBarColor = Colors.cyan[800]!;
   static const unselectedNavBarColor = Colors.black87;
 
-
-   // STATIC IMAGES
+  // STATIC IMAGES
   static const List<String> carouselImages = [
     'https://images-eu.ssl-images-amazon.com/images/G/31/img21/Wireless/WLA/TS/D37847648_Accessories_savingdays_Jan22_Cat_PC_1500.jpg',
     'https://images-eu.ssl-images-amazon.com/images/G/31/img2021/Vday/bwl/English.jpg',
@@ -30,24 +29,24 @@ class GlobalVariables {
 
   static const List<Map<String, String>> categoryImages = [
     {
-      'title': 'Mobiles',
-      'image': 'assets/images/mobiles.jpeg',
+      'title': 'Tools',
+      'image': 'assets/images/tools.jpeg',
     },
     {
       'title': 'Essentials',
       'image': 'assets/images/essentials.jpeg',
     },
     {
-      'title': 'Appliances',
-      'image': 'assets/images/appliances.jpeg',
+      'title': 'Mother',
+      'image': 'assets/images/mother.jpeg',
     },
     {
-      'title': 'Books',
-      'image': 'assets/images/books.jpeg',
+      'title': 'Sex & Wellness',
+      'image': 'assets/images/sex&wellness.jpeg',
     },
     {
-      'title': 'Fashion',
-      'image': 'assets/images/fashion.jpeg',
+      'title': 'Baby',
+      'image': 'assets/images/baby.jpeg',
     },
   ];
 }
