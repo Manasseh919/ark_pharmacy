@@ -1,5 +1,6 @@
 import 'package:ark_pharmacy/constants/bottom_bar.dart';
 import 'package:ark_pharmacy/constants/global_variables.dart';
+import 'package:ark_pharmacy/features/admin/screens/admin_screen.dart';
 import 'package:ark_pharmacy/features/auth/screens/auth_screen.dart';
 import 'package:ark_pharmacy/features/auth/services/auth_service.dart';
 import 'package:ark_pharmacy/features/home/screens/home_screen.dart';
@@ -36,19 +37,21 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Arkesel Pharmacy',
-        theme: ThemeData(
-          scaffoldBackgroundColor: GlobalVariables.backgroundColor,
-          colorScheme:
-              ColorScheme.light(primary: GlobalVariables.secondaryColor),
-          appBarTheme: const AppBarTheme(
-            elevation: 0,
-            iconTheme: IconThemeData(color: Colors.black),
-          ),
+      title: 'Arkesel Pharmacy',
+      theme: ThemeData(
+        scaffoldBackgroundColor: GlobalVariables.backgroundColor,
+        colorScheme: ColorScheme.light(primary: GlobalVariables.secondaryColor),
+        appBarTheme: const AppBarTheme(
+          elevation: 0,
+          iconTheme: IconThemeData(color: Colors.black),
         ),
-        onGenerateRoute: (settings) => generateRoute(settings),
-        home: Provider.of<UserProvider>(context).user.token.isNotEmpty
-            ? const BottomBar()
-            : const AuthScreen());
+      ),
+      onGenerateRoute: (settings) => generateRoute(settings),
+      home: Provider.of<UserProvider>(context).user.token.isNotEmpty
+          ? Provider.of<UserProvider>(context).user.type == "user"
+              ? const BottomBar()
+              : const AdminScreen()
+          : const AuthScreen(),
+    );
   }
 }
