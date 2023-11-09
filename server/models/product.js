@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-
 const productSchema = mongoose.Schema({
   name: {
     type: String,
@@ -30,7 +29,6 @@ const productSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-
 });
 
 const Product = mongoose.model("Product", productSchema);
