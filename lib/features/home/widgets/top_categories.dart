@@ -1,8 +1,13 @@
 import 'package:ark_pharmacy/constants/global_variables.dart';
+import 'package:ark_pharmacy/features/home/screens/category_screen.dart';
 import 'package:flutter/material.dart';
 
 class TopCategories extends StatelessWidget {
   const TopCategories({super.key});
+
+  void navigateToCategoryPage(BuildContext context, String category) {
+    Navigator.pushNamed(context, CategoryScreen.routeName, arguments: category);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +19,10 @@ class TopCategories extends StatelessWidget {
         itemExtent: 100,
         itemBuilder: (context, index) {
           return GestureDetector(
+            onTap: () => navigateToCategoryPage(
+              context,
+              GlobalVariables.categoryImages[index]['title']!,
+            ),
             child: Column(
               children: [
                 Container(
